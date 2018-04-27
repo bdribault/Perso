@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user.full_name }}</title>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'CV/style.css' %}" />
+</head>
+<body>
+<section id="introduction">
+    <h1>{{ user.full_name }}</h1>
+    <p class="banner">{{ cv.title }}</p>
+    <div id="introduction-details">
+        <p>{{ cv.get_experience }} ans d'expérience</p>
+        <div class="vsep"/>
+        <p>Disponible {{ cv.get_availability }}</p>
+    </div>
+</section>
+<section id="competences">
+    <h2>Mes compétences</h2>
+    <div id="competence_list">
+        {% for category, skill_list in cv.get_skills.items %}
+        <div class="competence_element">
+            <div class="competence_content">
+                <h3>{{ category }}</h3>
+                <ul>
+                    {% for skill in skill_list %}
+                    <li>{{ skill }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<section id="formation">
+    <h2>Ma formation</h2>
+    <ul>
+        {% for formation in formations %}
+        <li>{{ formation.content|safe }}</li>
+        {% endfor %}
+    </ul>
+</section>
+<section id="experiences">
+    <h2>Mon expérience</h2>
+    <div class="company">
+        {% for company in companies %}
+        <h3>{{ company.name|safe }}</h3>
+        {% if company.end %}
+        <p class="date">Du {{ company.begin }} au {{ company.end }}</p>
+        {% else %}
+        <p class="date">Depuis le {{ company.begin }}</p>
+        {% endif %}
+        <div class="experience_list">
+            {% for experience in company.experience_set.all %}
+            <div class="experience">
+                <h4>{{ experience.title|safe }}</h4>
+                <p>Durée : {{ experience.duration }}</p>
+                <h5>Projet et missions</h5>
+                <ul>
+                    {% for function in experience.missionfunction_set.all %}
+                    <li>{{ function.content }}</li>
+                    {% endfor %}
+                </ul>
+                <h5>Environnement technique</h5>
+                <ul>
+                    {% for function in experience.missiontechnical_set.all %}
+                    <li>{{ function.content }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<section id="footer"/>
+</body>
+</html>

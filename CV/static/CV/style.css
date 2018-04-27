@@ -1,0 +1,122 @@
+body {
+    font-family: 'PT Sans', sans-serif;
+    width: 80%;
+    min-width: 400px;
+    margin: auto;
+}
+h1 {
+    font-size: xx-large;
+}
+h2 {
+    border-bottom: 2px solid #2680A9;
+    color: #2680A9;
+}
+a {
+    color: black;
+}
+h3 a {
+    text-decoration: none;
+    padding-left : 10px;
+}
+h4 {
+    color: #2680A9;
+    font-size: 1.5em;
+    text-align: center;
+}
+h4 a {
+    color: #2680A9;
+}
+h5 {
+    font-size: 1em;
+}
+li {
+  line-height: 1.6;
+}
+#introduction {
+    text-align: center;
+}
+.banner {
+    background: #2680A9;
+    color: white;
+    font-size: xx-large;
+    font-weight: bold;
+    padding-top : 10px;
+    padding-bottom : 10px;
+}
+.vsep {
+    border-left: 2px solid #2680A9;
+    flex-grow: 1;
+}
+#introduction-details {
+    display: flex;
+    width: 50%;
+    margin: auto;
+}
+#introduction-details p{
+    margin: 0.2em;
+    flex-grow: 1;
+}
+#competence_list
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+.competence_element
+{
+    width: 20%;
+    min-width: 170px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.competence_content
+{
+    background: #EEEEEE;
+    height : 100%;
+
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.competence_content h3 {
+    text-align: center;
+    padding-top: 10px;
+}
+.company h3 {
+    color: #2680A9;
+    background: #DDDDDD;
+    margin-bottom: 0px;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    /*padding: 2px;*/
+
+}
+.date {
+    text-align: center;
+    margin-top:0px;
+}
+.experience_list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.experience {
+    margin-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 2px;
+    width: 45%;
+    min-width: 350px;
+    background: #EEEEEE;
+}
+
+.experience h4{
+    margin-bottom: 10px;
+}
+.experience p{
+    margin-top:0px;
+    text-align: center;
+}
+#footer {
+    height: 70px;
+}
