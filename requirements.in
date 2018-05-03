@@ -2,3 +2,4 @@ Django
 dj-database-url
 django-heroku
 gunicorn
+python-dotenv
