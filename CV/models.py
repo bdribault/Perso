@@ -70,6 +70,10 @@ class Skill(models.Model):
 class Formation(models.Model):
     cv = models.ForeignKey(Cv, on_delete=models.CASCADE)
     content = models.CharField(max_length=1024)
+    order = models.IntegerField()
+
+    class Meta:
+        ordering = ['order', ]
 
     def __str__(self):
         return self.content
