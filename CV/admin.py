@@ -19,7 +19,7 @@ class CompanyInline(admin.StackedInline):
     verbose_name_plural = u"Companies"
     extra = 1
     fieldsets = [
-        (None, {'fields': ['name']}),
+        (None, {'fields': ['name', 'website_link']}),
         ('Date information', {'fields': ['begin', 'end'], 'classes': ['collapse']}),
     ]
     show_change_link = True

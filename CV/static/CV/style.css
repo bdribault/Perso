@@ -88,8 +88,10 @@ li {
     padding-left: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
-    /*padding: 2px;*/
-
+}
+.company h3 a {
+    color: #2680A9;
+    padding-left: 0px;
 }
 .date {
     text-align: center;

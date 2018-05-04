@@ -46,7 +46,11 @@
     <h2>Mon expérience</h2>
     <div class="company">
         {% for company in companies %}
-        <h3>{{ company.name|safe }}</h3>
+        {% if company.website_link %}
+        <h3><a href="{{company.website_link}}">{{ company.name }}</a></h3>
+        {% else %}
+        <h3>{{ company.name }}</h3>
+        {% endif %}
         {% if company.end %}
         <p class="date">Du {{ company.begin }} au {{ company.end }}</p>
         {% else %}

@@ -82,6 +82,7 @@ class Formation(models.Model):
 class Company(models.Model):
     cv = models.ForeignKey(Cv, on_delete=models.CASCADE)
     name = models.CharField(max_length=1024)
+    website_link = models.CharField(max_length=512, blank=True)
     begin = models.DateField()
     end = models.DateField(null=True, blank=True)
 
