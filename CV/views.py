@@ -2,8 +2,14 @@
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.views import generic
+from django.views.generic import ListView
 
 from .models import Cv, Formation, Company
+
+
+class CvList(ListView):
+    model = Cv
+    context_object_name = "cv_list"
 
 
 class CvView(generic.TemplateView):

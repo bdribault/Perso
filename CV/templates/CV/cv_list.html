@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>CV</title>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'CV/style.css' %}" />
+</head>
+<body>
+    {% for cv in cv_list %}
+        <li><a href="{{cv.user.username}}">{{cv.user.get_full_name }} - {{ cv.title }}</a></li>
+    {% endfor %}
+</body>
+</html>

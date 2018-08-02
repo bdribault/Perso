@@ -6,4 +6,5 @@ from . import views
 
 urlpatterns = [
     path('<str:username>', views.CvView.as_view(), name='cv'),
+    path('', views.CvList.as_view(), name='cv_list'),
 ]
