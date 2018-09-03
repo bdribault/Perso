@@ -14,7 +14,27 @@
     <div id="introduction-details">
         <p>{{ cv.get_experience }} ans d'expérience</p>
         <div class="vsep"/>
-        <p>Disponible {{ cv.get_availability }}</p>
+        {% if cv.availability_type == "NOW" %}
+        <p>Disponible immédiatement</p>
+        {% elif cv.availability_type == "OFFSET" %}
+            {% with cv.availability_offset_number as number %}
+            {% if cv.availability_offset_quantity == "MONTH" %}
+            <p>Disponible sous {{ number }} mois</p>
+            {% elif cv.availability_offset_quantity == "DAY" %}
+            <p>Disponible sous {{ number }} jour{{number|pluralize:",s"}}</p>
+            {% elif debug %}
+            <script type="text/javascript">
+                alert("wrong availability_offset_quantity " + "{{cv.availability_offset_quantity}}");
+            </script>
+            {% endif %}
+            {% endwith %}
+        {% elif cv.availability_type == "AT" %}
+        <p>Disponible le {{ cv.availability_date }}</p>
+        {% elif debug %}
+        <script type="text/javascript">
+            alert("wrong availability_type " + "{{cv.availability_type}}");
+        </script>
+        {% endif %}
     </div>
 </section>
 <section id="competences">

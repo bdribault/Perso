@@ -27,6 +27,7 @@ if os.path.isfile(dotenv_file):
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG_MODE", "False") == "True"
+INTERNAL_IPS = ["127.0.0.1"]
 
 # Application definition
 

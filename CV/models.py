@@ -2,6 +2,7 @@ from datetime import date
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.forms import ValidationError
 
 
 class SkillCategory(models.Model):
@@ -15,30 +16,47 @@ class SkillCategory(models.Model):
 
 
 class Cv(models.Model):
-    AVAILABILITY_TYPE_DATE = "DATE"
-    AVAILABILITY_TYPE_STRING = "STRING"
+    AVAILABILITY_TYPE_NOW = "NOW"
+    AVAILABILITY_TYPE_OFFSET = "OFFSET"
+    AVAILABILITY_TYPE_AT = "AT"
     AVAILABILITY_TYPE = (
-        (AVAILABILITY_TYPE_DATE, 'date'),
-        (AVAILABILITY_TYPE_STRING, 'string'),
+        (AVAILABILITY_TYPE_NOW, 'now'),
+        (AVAILABILITY_TYPE_OFFSET, 'offset'),
+        (AVAILABILITY_TYPE_AT, 'at'),
+    )
+
+    AVAILABILITY_OFFSET_MONTH = "MONTH"
+    AVAILABILITY_OFFSET_DAY = "DAY"
+    
+    AVAILABILITY_OFFSET = (
+        (AVAILABILITY_OFFSET_DAY, 'day'),
+        (AVAILABILITY_OFFSET_MONTH, 'month'),
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     begin = models.DateField(null=True, blank=True)  # to compute experience
 
-    availability_type = models.CharField(max_length=64, choices=AVAILABILITY_TYPE, default=AVAILABILITY_TYPE_STRING)
-    availability_date = models.DateField(null=True, blank=True)
-    availability_string = models.CharField(max_length=255)
+    availability_type = models.CharField(max_length=64, choices=AVAILABILITY_TYPE, default=AVAILABILITY_TYPE_NOW)
+    availability_date = models.DateField(null=True, blank=True, help_text="if 'Availability type' is 'at'")
+    availability_offset_number = models.IntegerField(null=True, blank=True, help_text="if 'Availability type' is 'offset'")
+    availability_offset_quantity = models.CharField(max_length=64, choices=AVAILABILITY_OFFSET, default=AVAILABILITY_OFFSET_MONTH, help_text="if 'Availability type' is 'offset'")
+    
+
+    @classmethod
+    def is_availability_valide(cls, availability_type, availability_date, availability_offset_number, availability_offset_quantity):
+        if availability_type == cls.AVAILABILITY_TYPE_OFFSET:
+            if not availability_offset_number or not availability_offset_quantity:
+                return "availability offset expected"
+
+        if availability_type == cls.AVAILABILITY_TYPE_AT:
+            if not availability_date:
+                return "availability date expected"
+        return None
 
     def get_experience(self):
         delta = date.today() - self.begin
         return int(delta.days/365.25)
-
-    def get_availability(self):
-        if self.availability_type == self.AVAILABILITY_TYPE_DATE:
-            return "le " + self.availability_date.strftime("%d-%m-%Y")
-        else:
-            return self.availability_string
 
     def get_skills(self):
         skills = self.skill_set.all()
@@ -52,6 +70,11 @@ class Cv(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def clean(self):
+        error = self.is_availability_valide(self.availability_type, self.availability_date, self.availability_offset_number, self.availability_offset_quantity)
+        if error:
+            raise ValidationError(error)
 
 
 class Skill(models.Model):
