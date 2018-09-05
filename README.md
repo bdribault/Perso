@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bdribault/Perso.svg?branch=master)](https://travis-ci.org/bdribault/Perso)
+
 # Introduction
 J'ai lancé ce projet afin de me familiariser au developpement web avec le framework Django.
 Le site est pour l'instant constitué d'une seule partie : la génération / visualisation de CV en ligne.
