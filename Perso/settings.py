@@ -122,4 +122,5 @@ try:
     import django_heroku
     django_heroku.settings(locals())
 except ImportError:
-    found = False
+    # We're on travis platform
+    SECRET_KEY = os.environ['SECRET_KEY']
